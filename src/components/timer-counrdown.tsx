@@ -3,9 +3,16 @@ import cn from "@/utils/classnames";
 import { type Framework } from "@/utils/framework";
 import { countDoun } from "@/utils/countdown";
 
+const getClass = (num: number, number: number) => {
+  return num === number
+    ? "opacity-100 transition-none"
+    : num < number
+    ? "opacity-0 -translate-y-2"
+    : "opacity-0 translate-y-2";
+};
+
 function TimerRotation({ framework }: { framework: Framework }) {
   const [countdown, setCountdown] = useState(countDoun());
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCountdown(countDoun());
@@ -56,13 +63,8 @@ const Unite = ({
   );
 };
 
-const getClass = (num: number, number: number) => {
-  if (num === number) return "opacity-100 transition-none";
-  if (num < number) return "opacity-0 -translate-y-2";
-  return "opacity-0 translate-y-2";
-};
 const NumberRotation = ({ number }: { number: number }) => {
-  const numbers = Array.from({ length: 60 }, (_, i) => i + 1);
+  const numbers = Array.from({ length: 60 }, (_, i) => i);
 
   return (
     <div className="relative h-10 w-10">
@@ -74,7 +76,7 @@ const NumberRotation = ({ number }: { number: number }) => {
             getClass(num, number)
           )}
         >
-          {num}
+          {`${num}`.padStart(2, "0")}
         </div>
       ))}
     </div>

@@ -1,13 +1,22 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { assets } from "@/utils/asset";
 import { frameworks, type Framework } from "@/utils/framework";
 import cn from "@/utils/classnames";
 import FrameworkRotation from "@/components/framework-rotation";
-import TimerRotation from "@/components/timer-counrdown";
+import Cursor from "@/components/cursor";
+
+const TimerRotation = dynamic(() => import("@/components/timer-counrdown"), {
+  loading: () => (
+    <p className="text-white text-3xl font-semibold">Loading...</p>
+  ),
+  ssr: false,
+});
 
 export default function Home() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
   const [framework, setFramework] = useState<Framework>(frameworks[0]);
   const [background, setBackground] = useState<boolean>(false);
 
@@ -110,6 +119,7 @@ export default function Home() {
           </p>
           <div className="mb-8">
             <button
+              ref={buttonRef}
               className={cn(
                 "text-black px-6 py-3 rounded-md text-sm font-semibold transition-colors duration-200",
                 {
@@ -131,6 +141,7 @@ export default function Home() {
           <TimerRotation framework={framework} />
         </div>
       </div>
+      <Cursor buttonRef={buttonRef} />
     </main>
   );
 }

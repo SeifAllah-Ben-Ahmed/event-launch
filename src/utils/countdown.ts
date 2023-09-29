@@ -3,6 +3,7 @@ export const countDoun = () => {
   const currentDate = new Date();
   const remaining = eventDate.getTime() - currentDate.getTime();
 
+  // Calculate days, hours, minutes, and seconds
   const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
   const hours = Math.floor(
     (remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)

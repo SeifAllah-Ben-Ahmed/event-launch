@@ -1,9 +1,7 @@
-"use client";
 import Image from "next/image";
 import cn from "@/utils/classnames";
 import { assets } from "@/utils/asset";
 import { frameworks, type Framework } from "@/utils/framework";
-import { memo } from "react";
 
 function FrameworkRotation({ framework }: { framework: Framework }) {
   return (
